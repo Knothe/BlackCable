@@ -30,7 +30,7 @@ private:
 	PlaneModel* plane;
 	Model *enemy;
 	Skybox skybox;
-	std::list<Enemy> enemyPool;
+	std::list<Enemy *> enemyPool;
 
 
 public:
