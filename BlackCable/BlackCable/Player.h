@@ -29,6 +29,7 @@ private:
 	Transform transform;
 	float distanceOffset;
 	float offsetY;
+	bool shoot;
 	SphereCollider *spCollider;
 	std::list<Enemy*> *enemyPool;
 public:
@@ -37,7 +38,9 @@ public:
 	void Input(const std::map<int, bool> &keys);
 	void MouseInput(int x, int y, bool leftbutton);
 	void Draw();
-	void Update();
+	bool Update();
+	bool ShootCollide(Enemy* e, int nearest);
+	glm::vec3 GetPosition();
 private:
 	void Shoot(int x,int y);
 };

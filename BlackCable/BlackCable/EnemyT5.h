@@ -23,6 +23,8 @@ public:
 	void Draw();
 private:
 	void Shoot();
+	glm::vec3 movement;
+	float rotation;
 };
 
 #endif // ! 

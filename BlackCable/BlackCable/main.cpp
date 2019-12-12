@@ -1,12 +1,13 @@
 #include "BCE/Base/GameStateManager.h"
 #include "Game.h"
+#include "Menu.h"
 #include <time.h>
 
 int main(int argc, char* argv[])
 {
 	srand(time(0));
 	auto gameStateManager = GameStateManager::getPtr();
-	gameStateManager->SetState(new Game());
+	gameStateManager->SetState(new Menu());
 	gameStateManager->GameLoop();
 	return 0;
 }

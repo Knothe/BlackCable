@@ -28,7 +28,7 @@ namespace BCE
 			textureNormal->LoadTextureA();
 
 			material = new Material(1, 1);
-			transform = new Transform(); //Adidier regresa y arregla esto
+			transform = new Transform();
 		}
 
 		void PlaneModel::Draw()
@@ -39,9 +39,9 @@ namespace BCE
 			glm::mat4 model(1);
 			if (transform != nullptr)
 			{
-				transform->SetTranslation(0.0f, 0.0f, 0.0f);
-				transform->SetScale(140.0f, 140.0f, 140.0f);
-				transform->SetRotation(0.0f, 0.0f, 0.0f);
+				transform->SetTranslation(40.0f, 10.0f, 0.0f);
+				transform->SetScale(10.0f, 10.0f, 10.0f);
+				transform->SetRotation(0.0f, 0.0f, 80.0f);
 				glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(transform->GetTransform()));
 			}
 			material->UseMaterial(ShaderManager::getPtr()->GetSpecularIntensityLocation(),
@@ -60,10 +60,10 @@ namespace BCE
 			};
 
 			GLfloat vertices[] = {
-				-1.0, 0,  -1.0, 0.0f, 0.0f,		0.4f, 0.0f, 0.8f,1.0f, 0.0f, 0.0f,//0
-				1.0, 0,  -1.0,1.0f, 0.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//1
-				1.0,  0,  1.0,0.0f, 1.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//2
-				-1.0,  .0,  1.0,1.0f, 0.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//3
+				-1.0, 0,  -1.0,		0.0f, 0.0f,		0.4f, 0.0f, 0.8f,1.0f, 0.0f, 0.0f,//0
+				1.0, 0,  -1.0,		0.0f, 1.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//1
+				1.0,  0,  1.0,		1.0f, 1.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//2
+				-1.0,  .0,  1.0,	1.0f, 0.0f,		0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f,//3
 			};
 			calcAverageNormals(indices, 6, vertices, 44, 11, 5);
 

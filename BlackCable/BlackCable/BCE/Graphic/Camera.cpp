@@ -45,6 +45,15 @@ namespace BCE
 			{
 				position += right * velocity;
 			}
+
+			if (position.x > 100)
+				position.x = 100;
+			if (position.x < -100)
+				position.x = -100;
+			if (position.z > 100)
+				position.z = 100;
+			if (position.y < -100)
+				position.z = -100;
 		}
 
 		glm::vec3 Camera::getCameraPosition()
@@ -93,13 +102,14 @@ namespace BCE
 
 		glm::mat4 Camera::calculateViewMatrix()
 		{
+			int n = 100;
 			return glm::lookAt(position, position + front, up);
 		}
 
 		void Camera::update()
 		{
 			front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-			front.y = 0;//sin(glm::radians(pitch));
+			front.y = 0;
 			front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 			front = glm::normalize(front);
 

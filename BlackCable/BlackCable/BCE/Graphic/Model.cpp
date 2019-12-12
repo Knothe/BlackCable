@@ -29,7 +29,7 @@ namespace BCE
 			{
 				for (size_t j = 0; j < textureList.size(); j++)
 				{
-					textureList[j]->UseTexture(GL_TEXTURE0+j);
+					textureList[j]->UseTexture(GL_TEXTURE0 + j);
 				}
 				meshList[i]->RenderMesh();
 			}
@@ -122,11 +122,9 @@ namespace BCE
 				//}
 			}
 		}
-
-
 		void Model::AddTexture(std::string path)
 		{
-			
+
 			int idx = std::string(path).rfind("\\");
 			std::string filename = std::string(path).substr(idx + 1);
 

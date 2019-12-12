@@ -43,7 +43,8 @@ namespace BCE
 					platform->CheckEvent(state, &GameState::Input, &GameState::MouseInput);
 					state->Update();
 					state->Draw();
-
+					if (!state->GetState())
+						RealaseState();
 				}
 				catch (...)
 				{
@@ -64,6 +65,8 @@ namespace BCE
 			auto state = states.top();
 			state->Close();
 			states.pop();
+			state = states.top();
+			state->Restart();
 		}
 	}
 }

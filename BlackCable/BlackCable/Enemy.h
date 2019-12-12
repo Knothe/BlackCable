@@ -21,7 +21,8 @@ class Enemy
 protected:
 	int life;
 	int ammo;
-	float speed;
+	bool isActive = true;
+	float speed = 0.01f;
 	Model *weapon;
 	Platform* platform;
 	Transform transform;
@@ -33,6 +34,10 @@ public:
 	virtual void Init() = 0;
 	virtual void Update()=0;
 	virtual void Draw() = 0;
+	void SetTranslation(glm::vec3 p);
+	void SetActive(bool a);
+	bool GetActive();
+	void SetSpeed(float s);
 private:
 	virtual void Shoot() = 0;
 };

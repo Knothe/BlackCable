@@ -27,13 +27,10 @@ private:
 	GameStateManager* manager;
 	ShaderManager* shaderManager;
 	Player* player;
-	CubeModel *cube;
-	PlaneModel* plane;
-	Model *enemy;
-	Text text;
+	Model* field;
 	Skybox skybox;
 	std::list<Enemy *> enemyPool;
-
+	int level;
 
 public:
 	Game();
@@ -43,7 +40,9 @@ public:
 	bool Input(std::map<int, bool> keys) override;
 	bool MouseInput(int x, int y, bool leftbutton);
 	void Update() override;
+	void Restart() override;
 	void CreateEnemies();
+	void MoveEnemies();
 	void Close() override;
 
 };

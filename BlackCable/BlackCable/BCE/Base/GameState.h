@@ -12,6 +12,8 @@ namespace BCE
 
 		class GameState
 		{
+		protected:
+			bool state = true;
 		public:
 			virtual void Init() = 0;
 			virtual void Draw() = 0;
@@ -19,6 +21,10 @@ namespace BCE
 			virtual bool MouseInput(int x, int y, bool leftbutton) = 0;
 			virtual void Update() = 0;
 			virtual void Close() = 0;
+			virtual void Restart() = 0;
+			bool GetState() {
+				return state;
+			}
 		};
 	}
 }

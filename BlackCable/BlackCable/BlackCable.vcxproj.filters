@@ -107,6 +107,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BCE\Base\GameState.h">
@@ -182,6 +183,7 @@
     <ClInclude Include="BCE\Physics\SphereCollider.h">
       <Filter>BCE\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Default\default.frag">

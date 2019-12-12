@@ -43,14 +43,14 @@ uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
 uniform sampler2D theTexture;
-uniform sampler2D normalMap;  
+//uniform sampler2D normalMap;  
 uniform Material material;
 
 uniform vec3 eyePosition;
 
 vec4 CalcLightByDirection(Light light, vec3 direction)
 {
-    vec3 Normal = texture(normalMap, TexCoord).rgb;
+    vec3 Normal = texture(theTexture, TexCoord).rgb;
     Normal = normalize(Normal*2-1);  
 	Normal = normalize(TBN * Normal); 
 //
@@ -107,5 +107,5 @@ void main()
 	vec4 finalColour = CalcDirectionalLight();
 	finalColour += CalcPointLights();
 	
-	colour = texture(normalMap, TexCoord) * finalColour;
+	colour = texture(theTexture, TexCoord) * finalColour;
 }

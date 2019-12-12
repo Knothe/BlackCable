@@ -74,19 +74,19 @@ namespace BCE
 				glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera->calculateViewMatrix()));
 				glUniform3f(uniformEyePosition, camera->getCameraPosition().x, camera->getCameraPosition().y, camera->getCameraPosition().z);
 
-				mainLight = DirectionalLight(0.5f, 0.5f, 0.5f,
-					.3f, .3f,
+				mainLight = DirectionalLight(1.0f, 1.0f, 0.7f,
+					.8f, .8f,
 					0.0f, 0.0f, -1.0f);
 
 				unsigned int pointLightCount = 0;
-				pointLights[0] = PointLight(0.0f, 1.0f, 0.0f,
-					10.2f, 10.2f,
+				pointLights[0] = PointLight(0.2f, 0.2f, 0.2f,
+					10.2f, 100.2f,
 					30.0f, 3.0f, 0.0f,
 					0.3f, 0.2f, 0.1f);
 				pointLightCount++;
-				pointLights[1] = PointLight(1.0f, 1.0f, 1.0f,
-					.7f, .7f,
-					-1.0f, 0.0f, 0.0f,
+				pointLights[1] = PointLight(0.0f, 0.0f, 0.1f,
+					4.2f, 1000.2f,
+					0.0f, 7.0f, 0.0f,
 					0.3f, 0.2f, 0.1f);
 				pointLightCount++;
 
