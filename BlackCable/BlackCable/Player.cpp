@@ -11,6 +11,8 @@ Player::Player(glm::vec3 position)
 	distanceOffset = glm::length(glm::vec3(offset.x, 0, offset.y));
 	offsetY = offset.y;
 	shoot = false;
+	SoundEngine = createIrrKlangDevice();
+	ammo = 15;
 }
 
 void Player::Init(std::list<Enemy*> *enemyPool)
@@ -18,7 +20,7 @@ void Player::Init(std::list<Enemy*> *enemyPool)
 	this->enemyPool = enemyPool;
 	weapon = new Model();
 	weapon->LoadModel("Assets/Models/Weapon.obj");
-	weapon->AddTexture("Weapon_UV.png");
+	weapon->AddTexture("Pistola.png");
 	spCollider = new SphereCollider(2, camera.getCameraPosition());
 }
 
@@ -38,8 +40,12 @@ bool Player::Update()
 {
 	spCollider->SetTranslation(camera.getCameraPosition());
 	if (shoot) {
-		Shoot(0, 0);
+		if (ammo > 0) 
+			Shoot(0, 0);
+		else
+			SoundEngine->play2D("Assets/Sounds/EmptyGun.wav", GL_FALSE);
 		shoot = false;
+
 	}
 	for (auto ene : *enemyPool)
 	{
@@ -71,6 +77,8 @@ glm::vec3 Player::GetPosition() {
 
 void Player::Shoot(int x, int y)
 {
+	ammo--;
+	SoundEngine->play2D("Assets/Sounds/GGS.wav", GL_FALSE);
 	Enemy* closest = NULL;
 	int nearest = -1;
 	for (auto ene : *enemyPool)
@@ -84,6 +92,16 @@ void Player::Shoot(int x, int y)
 	if(closest)
 		closest->SetActive(false);
 }
+
+SphereCollider* Player::GetCollider() {
+	return spCollider;
+}
+
+void Player::PlayRecharge() {
+	SoundEngine->play2D("Assets/Sounds/FFR.wav", GL_FALSE);
+	ammo += 10;
+}
+
 
 bool Player::ShootCollide(Enemy* e, int nearest) {
 	glm::vec3 shot;

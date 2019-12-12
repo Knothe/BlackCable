@@ -18,6 +18,8 @@ Menu::~Menu()
 
 void Menu::Init()
 {
+	ISoundEngine* SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("Assets/Sounds/Potato.wav", GL_TRUE);
 	this->platform = Platform::GetPtr();
 	this->manager = GameStateManager::getPtr();
 	shaderManager = ShaderManager::getPtr();

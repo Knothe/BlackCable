@@ -11,6 +11,9 @@
 #include "BCE/Physics/SphereCollider.h"
 #include <list>
 #include "Enemy.h"
+#include "irrKlang.h"
+using namespace irrklang;
+
 
 using namespace BCE::Base;
 using namespace BCE::Graphics;
@@ -30,6 +33,7 @@ private:
 	float distanceOffset;
 	float offsetY;
 	bool shoot;
+	ISoundEngine* SoundEngine;
 	SphereCollider *spCollider;
 	std::list<Enemy*> *enemyPool;
 public:
@@ -40,7 +44,9 @@ public:
 	void Draw();
 	bool Update();
 	bool ShootCollide(Enemy* e, int nearest);
+	SphereCollider* GetCollider();
 	glm::vec3 GetPosition();
+	void PlayRecharge();
 private:
 	void Shoot(int x,int y);
 };

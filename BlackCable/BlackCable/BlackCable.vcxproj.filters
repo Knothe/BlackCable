@@ -108,6 +108,7 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BCE\Base\GameState.h">
@@ -184,6 +185,7 @@
       <Filter>BCE\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Item.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Default\default.frag">

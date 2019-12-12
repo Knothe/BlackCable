@@ -21,15 +21,20 @@ void Game::Init()
 	this->platform = Platform::GetPtr();
 	this->manager = GameStateManager::getPtr();
 	shaderManager = ShaderManager::getPtr();
-	//shaderManager->LoadShaders("phong", "Assets/Shaders/Default/phong-shader.vert", "Assets/Shaders/Default/phong-shader.frag");
-	//shaderManager->LoadShaders("gouraud", "Assets/Shaders/Default/gouraud-shader.vert", "Assets/Shaders/Default/gouraud-shader.frag");
 	player = new Player(glm::vec3(0, 0, 0));
 	player->Init(&enemyPool);
+
+	item = new Item();
+	item->UpdatePosition(glm::vec3((rand() % 200) - 100, 7, (rand() % 200) - 100));
 
  	field = new Model();
 	field->LoadModel("Assets/Models/Field.obj");
 	field->AddTexture("Field.png");
 	field->SetTransform(new Transform(glm::vec3( 0, 0, 0), glm::vec3( 0, 0, 0), glm::vec3(200, 100, 200)));
+	gem = new Model();
+	gem->LoadModel("Assets/Models/Gem.obj");
+	gem->AddTexture("Gem.png");
+	gem->SetTransform(new Transform(glm::vec3( 0, 0, 0), glm::vec3( 0, 0, 0), glm::vec3(5, 5, 5)));
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Assets/Textures/Skybox/sorbin_rt.tga");
@@ -38,9 +43,8 @@ void Game::Init()
 	skyboxFaces.push_back("Assets/Textures/Skybox/sorbin_dn.tga");
 	skyboxFaces.push_back("Assets/Textures/Skybox/sorbin_bk.tga");
 	skyboxFaces.push_back("Assets/Textures/Skybox/sorbin_ft.tga");
-
+	enemies = 0;
 	skybox = Skybox(skyboxFaces);
-	level = 1;
 	CreateEnemies();
 }
 
@@ -51,10 +55,10 @@ void Game::Draw()
 	
 	shaderManager->Activate("phong");
 	shaderManager->draw();
-
+	gem->Draw();
 	player->Draw();
 	field->Draw();
-
+	item->Draw();
 	for (auto enemy : enemyPool)
 	{
 		if(enemy->GetActive())
@@ -85,11 +89,17 @@ void Game::Update()
 			enemy->Update();
 			hasEnemies = true;
 		}
+		else
+			MoveEnemies(enemy);
 	}
+
+	if (item->CheckCollision(player->GetCollider())) {
+		item->UpdatePosition(glm::vec3((rand() % 200) - 100, 7, (rand() % 200) - 100));
+		player->PlayRecharge();
+	}
+
 	if (player->Update())
 		state = false;
-	if (!hasEnemies)
-		MoveEnemies();
 }
 
 void Game::CreateEnemies()
@@ -118,16 +128,26 @@ void Game::CreateEnemies()
 	}
 }
 
-void Game::MoveEnemies() {
-	level++;
-	for (auto enemy : enemyPool) {
-		int dir = -1;
-		if (rand() % 100 > 50)
-			dir = 1;
-		enemy->SetTranslation(glm::vec3(rand() % 100 * dir, 10, rand() % 100 * dir));
-		enemy->SetActive(true);
-		enemy->SetSpeed(0.002f * level);
+void Game::MoveEnemies(Enemy* e) {
+	enemies++;
+	int dir1, dir2;
+	dir1 = -1;
+	dir2 = -1;
+
+	if (rand() % 100 > 50) {
+		dir1 = 1;
+		if (rand() % 100 > 50) 
+			dir2 = 1;
 	}
+	else {
+		if (rand() % 100 > 50) 
+			dir2 = 1;
+	}
+		
+	e->SetTranslation(glm::vec3((rand() % 50 + 50) * dir1, 10, (rand() % 50 + 50) * dir2));
+	e->SetActive(true);
+	e->SetSpeed(0.002f * enemies / 2);
+	
 }
 
 void Game::Restart() {

@@ -14,6 +14,7 @@
 #include "EnemyT4.h"
 #include "EnemyT5.h"
 #include "Enemy.h"
+#include "Item.h"
 #include <list>
 
 #include<vector>
@@ -28,9 +29,11 @@ private:
 	ShaderManager* shaderManager;
 	Player* player;
 	Model* field;
+	Model* gem;
 	Skybox skybox;
 	std::list<Enemy *> enemyPool;
-	int level;
+	int enemies;
+	Item* item;
 
 public:
 	Game();
@@ -42,7 +45,7 @@ public:
 	void Update() override;
 	void Restart() override;
 	void CreateEnemies();
-	void MoveEnemies();
+	void MoveEnemies(Enemy* e);
 	void Close() override;
 
 };
